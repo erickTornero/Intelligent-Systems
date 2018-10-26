@@ -1,3 +1,9 @@
+# Class that implement the logistic regression using Newthon J.Raphson to get the
+# Maximum Likehood Coeficient
+
+# ***Warning***: Minibatch is not implemented, so it could be a problem in computer's
+# with Low Ram Memory.
+# This Method was tested successfully in a Computer with 16GB RAM
 import numpy as np
 from numpy.linalg import inv
 class MyLogisticRegression():
@@ -29,7 +35,7 @@ class MyLogisticRegression():
             W[i,i].astype(float)
         return W
 
-    def fit(self, data, labels, err_allowed):
+    def fit(self, data, labels, err_allowed=0.01):
         X = data.values
         Y = labels.values
         rows = np.shape(X)[0]
@@ -69,7 +75,7 @@ class MyLogisticRegression():
     def sigmoid(self, val):
         return 1/(1 + np.exp(-val))
 
-    def predict(self, X_test, threshold):
+    def predict(self, X_test, threshold=0.5):
         if(np.shape(self.coef)[0] == 0 and np.shape(self.coef)[1] == 0):
             print('Error: Entrenar el modelo')
         else:
@@ -86,5 +92,12 @@ class MyLogisticRegression():
                 else:
                     estimated[i,0] = 0
             return estimated
-                
-    
+    def score(self, X_test, Y_test,threshold=0.5):
+        predicted = self.predict(X_test, threshold)
+        Y_ar = Y_test.values
+        n = np.shape(Y_ar)[0]
+        poscount = 0
+        for i in range(n):
+            if predicted[i] == Y_ar[i]:
+                poscount = poscount + 1
+        return poscount/n
