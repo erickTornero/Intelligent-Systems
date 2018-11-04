@@ -16,3 +16,5 @@ Algoritmos utilizados
 * SVR
 
 Resultados en Kaggle: Ver Imagen *position_kaggle.png*
+
+![alt text](https://raw.githubusercontent.com/erickTornero/Intelligent-Systems/master/w1/position_kaggle.png)
